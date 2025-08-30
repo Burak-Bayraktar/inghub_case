@@ -1,4 +1,5 @@
 import {html, css, LitElement} from 'lit';
+import {chevronLeftIcon, chevronRightIcon} from '../assets/icons/index.js';
 
 export class AppPagination extends LitElement {
   static properties = {
@@ -157,7 +158,7 @@ export class AppPagination extends LitElement {
           @click=${() => this._go('prev')}
           aria-label="Previous"
         >
-          ${this._chevronLeft()}
+          ${chevronLeftIcon}
         </button>
 
         ${this._pages?.map((p) =>
@@ -178,41 +179,10 @@ export class AppPagination extends LitElement {
           @click=${() => this._go('next')}
           aria-label="Next"
         >
-          ${this._chevronRight()}
+          ${chevronRightIcon}
         </button>
       </nav>
     `;
-  }
-
-  _chevronLeft() {
-    return html`<svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <polyline points="15 18 9 12 15 6"></polyline>
-    </svg> `;
-  }
-  _chevronRight() {
-    return html`<svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <polyline points="9 18 15 12 9 6"></polyline>
-    </svg> `;
   }
 }
 customElements.define('app-pagination', AppPagination);

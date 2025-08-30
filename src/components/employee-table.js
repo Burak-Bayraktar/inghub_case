@@ -2,6 +2,7 @@ import {html, css} from 'lit';
 import {msg} from '@lit/localize';
 import {LocalizedComponent} from './localized-component.js';
 import {EmployeeService} from '../services/employee-service.js';
+import {editIcon, trashIcon} from '../assets/icons/index.js';
 import './pagination.js';
 
 export class EmployeeTable extends LocalizedComponent {
@@ -218,14 +219,14 @@ export class EmployeeTable extends LocalizedComponent {
                       @click=${() => this._onEdit(row)}
                       title="Edit"
                     >
-                      ${this._svgEdit()}
+                      ${editIcon}
                     </button>
                     <button
                       class="icon-btn"
                       @click=${() => this._onDelete(row)}
                       title="Delete"
                     >
-                      ${this._svgTrash()}
+                      ${trashIcon}
                     </button>
                   </td>
                 </tr>
@@ -244,19 +245,6 @@ export class EmployeeTable extends LocalizedComponent {
         </div>
       </div>
     `;
-  }
-
-  _svgEdit() {
-    return html`<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.04a1.001 1.001 0 0 0 0-1.42l-2.5-2.5a1.001 1.001 0 0 0-1.42 0l-1.83 1.83 3.75 3.75 1.99-1.66z"
-      />
-    </svg>`;
-  }
-  _svgTrash() {
-    return html`<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M6 7h12v2H6V7zm2 3h8l-1 11H9L8 10zm3-5h2l1 1h4v2H6V6h4l1-1z" />
-    </svg>`;
   }
 }
 
