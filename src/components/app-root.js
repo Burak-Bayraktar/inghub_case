@@ -2,6 +2,7 @@ import { html, css } from 'lit';
 import { Router } from '@vaadin/router';
 import { msg } from '@lit/localize';
 import { LocalizedComponent } from './localized-component.js';
+import { ukFlag, turkeyFlag } from '../assets/flags/index.js';
 
 import './item-list.js';
 import './item-form.js';
@@ -9,49 +10,178 @@ import './item-form.js';
 export class AppRoot extends LocalizedComponent {
   static styles = css`
     :host { display:block; }
-    header { padding:16px 0; display:flex; gap:12px; align-items:center; justify-content:space-between; }
-    header .header-left { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-    nav a { margin-right: 10px; }
-    .header-right { display: flex; gap: 32px; align-items: center; }
-    .header-right button { 
-      padding: 4px 8px; 
-      border: 1px solid #ccc; 
-      background: white; 
-      cursor: pointer; 
-      border-radius: 4px;
+    .header-top {
+      height: 48px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #e55100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      font-size: 14px;
+      color: white;
     }
-    .language-switcher button.active { 
-      background: #ff6a00; 
-      color: white; 
-      border-color: #ff6a00;
+    .header-top-left {
+      display: flex;
+      align-items: center;
+    }
+    .header-top-logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff6200;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .header-top-right {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .header-top-nav {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .header-top-nav a {
+      text-decoration: none;
+      color: #ff6200;
+      font-weight: 500;
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .header-top-nav a:hover {
+      background-color: #ff6200;
+      color: white;
+    }
+    .header-top-nav a.active {
+      background-color: #ff6200;
+      color: white;
+    }
+    .header-top .language-switcher {
+      display: flex;
+      gap: 8px;
+    }
+    .header-top .language-switcher button {
+      padding: 4px;
+      border: 2px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header-top .language-switcher button:hover {
+      border-color: #ff6200;
+      transform: scale(1.05);
+    }
+    .header-top .language-switcher svg {
+      width: 24px;
+      height: 24px;
+      border-radius: 2px;
+    }
+    header { 
+      padding: 16px 20px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      background: #fff;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #ff6200;
+      margin: 0;
     }
     .container { margin: 0; padding: 0; }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-top {
+        padding: 0 16px;
+        height: 56px;
+      }
+      .header-top-logo {
+        font-size: 20px;
+      }
+      .header-top-right {
+        gap: 16px;
+      }
+      .header-top-nav {
+        gap: 12px;
+      }
+      .header-top-nav a {
+        font-size: 12px;
+        padding: 4px 8px;
+      }
+      .header-top .language-switcher button {
+        padding: 3px;
+      }
+      .header-top .language-switcher svg {
+        width: 20px;
+        height: 20px;
+      }
+      .page-title {
+        font-size: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .header-top {
+        padding: 0 12px;
+      }
+      .header-top-nav a {
+        font-size: 11px;
+        padding: 3px 6px;
+      }
+      .header-top-right {
+        gap: 12px;
+      }
+      .header-top-nav {
+        gap: 8px;
+      }
+      .header-top .language-switcher svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
   `;
 
   render() {
     return html`
       <div class="container">
-        <header>
-          <div class="header-left">
-            <h2 style="margin:0">${msg('Employee List')}</h2>
-            <nav>
-            </nav>
+        <div class="header-top">
+          <div class="header-top-left">
+            <a href="#/" class="header-top-logo">ING</a>
           </div>
-          <div class="header-right">
-            <a href="#/new">${msg('New')}</a>
+          <div class="header-top-right">
+            <div class="header-top-nav">
+              <a href="#/">${msg('Employees')}</a>
+              <a href="#/new">${msg('Add New')}</a>
+            </div>
             <div class="language-switcher">
-              <button 
-                class="${this._currentLocale === 'en' ? 'active' : ''}"
-                @click="${() => this._setLocale('en')}">
-                EN
-              </button>
-              <button 
-                class="${this._currentLocale === 'tr' ? 'active' : ''}"
-                @click="${() => this._setLocale('tr')}">
-                TR
-              </button>
+              ${this._getCurrentLocale() === 'en' ? html`
+                <button 
+                  @click="${() => this._setLocale('tr')}"
+                  title="Switch to Turkish">
+                  ${turkeyFlag}
+                </button>
+              ` : html`
+                <button 
+                  @click="${() => this._setLocale('en')}"
+                  title="Switch to English">
+                  ${ukFlag}
+                </button>
+              `}
             </div>
           </div>
+        </div>
+        <header>
+          <h1 class="page-title">${msg('Employee Management')}</h1>
         </header>
         <div id="outlet"></div>
       </div>
@@ -87,6 +217,10 @@ export class AppRoot extends LocalizedComponent {
         this.requestUpdate();
       });
     }
+  }
+
+  _getCurrentLocale() {
+    return window.appGetLocale ? window.appGetLocale() : 'en';
   }
 }
 
