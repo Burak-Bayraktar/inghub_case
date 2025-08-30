@@ -23,6 +23,9 @@
     "analyze:watch": "cem analyze --litelement --globs \"**/*.js\" --exclude docs --watch",
     "serve": "wds --watch",
     "serve:prod": "MODE=prod npm run serve",
+    "i18n:extract": "lit-localize extract",
+    "i18n:build": "lit-localize build",
+    "i18n:watch": "lit-localize build --watch",
     "test": "npm run test:dev && npm run test:prod",
     "test:dev": "wtr",
     "test:watch": "wtr --watch",
@@ -39,6 +42,7 @@
   "author": "Google LLC",
   "license": "BSD-3-Clause",
   "dependencies": {
+    "@lit/localize": "^0.12.2",
     "@vaadin/router": "^2.0.0",
     "lit": "^3.2.0"
   },
@@ -47,6 +51,7 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
     "@babel/eslint-parser": "^7.17.0",
     "@custom-elements-manifest/analyzer": "^0.6.3",
+    "@lit/localize-tools": "^0.8.0",
     "@open-wc/testing": "^4.0.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.7",
