@@ -1,32 +1,59 @@
-import { LitElement, html, css } from 'lit';
+import { html, css } from 'lit';
 import { Router } from '@vaadin/router';
+import { msg } from '@lit/localize';
+import { LocalizedComponent } from './localized-component.js';
 
 import './item-list.js';
 import './item-form.js';
 
-export class AppRoot extends LitElement {
+export class AppRoot extends LocalizedComponent {
   static styles = css`
     :host { display:block; }
-    header { padding:16px 0; display:flex; gap:12px; align-items:center; }
+    header { padding:16px 0; display:flex; gap:12px; align-items:center; justify-content:space-between; }
+    header .header-left { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
     nav a { margin-right: 10px; }
-    .container { margin: 28px auto; padding: 0 16px; }
-    .card { background: var(--panel, #111827); border-radius: 14px; padding: 16px; }
+    .header-right { display: flex; gap: 32px; align-items: center; }
+    .header-right button { 
+      padding: 4px 8px; 
+      border: 1px solid #ccc; 
+      background: white; 
+      cursor: pointer; 
+      border-radius: 4px;
+    }
+    .language-switcher button.active { 
+      background: #ff6a00; 
+      color: white; 
+      border-color: #ff6a00;
+    }
+    .container { margin: 0; padding: 0; }
   `;
 
   render() {
     return html`
       <div class="container">
         <header>
-          <h2 style="margin:0">Employee List</h2>
-          <span style="flex:1"></span>
-          <nav>
-            <a href="#/list">Liste</a>
-            <a href="#/new">Yeni</a>
-          </nav>
+          <div class="header-left">
+            <h2 style="margin:0">${msg('Employee List')}</h2>
+            <nav>
+            </nav>
+          </div>
+          <div class="header-right">
+            <a href="#/new">${msg('New')}</a>
+            <div class="language-switcher">
+              <button 
+                class="${this._currentLocale === 'en' ? 'active' : ''}"
+                @click="${() => this._setLocale('en')}">
+                EN
+              </button>
+              <button 
+                class="${this._currentLocale === 'tr' ? 'active' : ''}"
+                @click="${() => this._setLocale('tr')}">
+                TR
+              </button>
+            </div>
+          </div>
         </header>
-        <div class="card">
-          <div id="outlet"></div>
-        </div>
+        <div id="outlet"></div>
       </div>
     `;
   }
@@ -42,5 +69,25 @@ export class AppRoot extends LitElement {
       { path: '(.*)', action: (ctx, commands) => commands.redirect('/') },
     ]);
   }
+
+  _setLocale(locale) {
+    if (window.appSetLocale) {
+      window.appSetLocale(locale).then(() => {
+        // URL'i güncelle
+        const url = new URL(window.location);
+        url.searchParams.set('locale', locale);
+        window.history.replaceState({}, '', url);
+        
+        // Global locale change event fırlat
+        window.dispatchEvent(new CustomEvent('locale-changed', { 
+          detail: { locale } 
+        }));
+        
+        // App root'u yeniden render et
+        this.requestUpdate();
+      });
+    }
+  }
 }
+
 customElements.define('app-root', AppRoot);
