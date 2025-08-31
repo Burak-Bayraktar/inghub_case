@@ -6,6 +6,7 @@ import {listIcon, gridIcon} from '../assets/icons/index.js';
 import './pagination.js';
 import './employee-table-view.js';
 import './employee-list-view.js';
+import './page-title.js';
 
 export class EmployeeTable extends LocalizedComponent {
   static properties = {
@@ -43,7 +44,7 @@ export class EmployeeTable extends LocalizedComponent {
     }
     
     .card {
-      background: white;
+      background: rgb(248, 249, 250);
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       overflow: hidden;
@@ -56,13 +57,6 @@ export class EmployeeTable extends LocalizedComponent {
       display: flex;
       align-items: center;
       justify-content: space-between;
-    }
-    
-    .table-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: #2d3748;
-      margin: 0;
     }
     
     .view-switcher {
@@ -109,10 +103,6 @@ export class EmployeeTable extends LocalizedComponent {
     @media (max-width: 768px) {
       .table-header {
         padding: 12px 16px;
-      }
-      
-      .table-title {
-        font-size: 16px;
       }
       
       .view-switcher button {
@@ -215,7 +205,7 @@ export class EmployeeTable extends LocalizedComponent {
     return html`
       <div class="card">
         <div class="table-header">
-          <h2 class="table-title">${msg('Employees')}</h2>
+          <page-title .title=${msg('Employee List')} inline></page-title>
           <div class="view-switcher">
             <button 
               class="${this.viewMode === 'list' ? 'active' : ''}"

@@ -28,9 +28,7 @@ export class AppRoot extends LocalizedComponent {
       align-items: center;
       justify-content: space-between;
       padding: 0 24px;
-      font-size: 14px;
-      color: white;
-    }
+    
     .header-top-left {
       display: flex;
       align-items: center;
@@ -93,28 +91,6 @@ export class AppRoot extends LocalizedComponent {
       height: 24px;
       border-radius: 2px;
     }
-    header { 
-      padding: 16px 20px; 
-      display: flex; 
-      align-items: center; 
-      justify-content: space-between;
-      background: #fff;
-      border-bottom: 1px solid #e9ecef;
-    }
-    .header-left {
-      flex: 1;
-    }
-    .page-title {
-      font-size: 24px;
-      font-weight: 600;
-      color: #ff6200;
-      margin: 0;
-    }
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
     .container { margin: 0; padding: 0; }
     
     /* Responsive Design */
@@ -142,12 +118,6 @@ export class AppRoot extends LocalizedComponent {
       .header-top .language-switcher svg {
         width: 20px;
         height: 20px;
-      }
-      .page-title {
-        font-size: 20px;
-      }
-      .header-right {
-        gap: 6px;
       }
     }
     
@@ -226,7 +196,7 @@ export class AppRoot extends LocalizedComponent {
           </div>
           <div class="header-top-right">
             <div class="header-top-nav">
-              <a href="#/" class="${this.currentRoute === '/' ? 'active' : ''}">${msg('Employees')}</a>
+              <a href="#/" class="${this.currentRoute === '/' ? 'active' : ''}">${msg('Employee List')}</a>
               <a href="#/new" class="${this.currentRoute === '/new' ? 'active' : ''}">${msg('Add New')}</a>
             </div>
             <div class="language-switcher">
@@ -246,15 +216,6 @@ export class AppRoot extends LocalizedComponent {
             </div>
           </div>
         </div>
-        <header>
-          <div class="header-left">
-            <h1 class="page-title">
-              ${this.currentRoute === '/new' ? msg('Add New Employee') : 
-                this.currentRoute === '/edit' ? msg('Edit Employee') : 
-                msg('Employee Management')}
-            </h1>
-          </div>
-        </header>
         <div id="outlet">
           ${this._renderCurrentRoute()}
         </div>
