@@ -24,13 +24,34 @@ export class EmployeeTable extends LocalizedComponent {
     this.pageSize = 9;
     this.selectedIds = [];
     this.viewMode = 'list';
+    this.totalRows = 0;
+    this._storeUnsubscribe = null;
 
+    this._loadEmployeeData();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this._storeUnsubscribe = EmployeeService.subscribe(() => {
+      this._loadEmployeeData();
+    });
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this._storeUnsubscribe) {
+      this._storeUnsubscribe();
+    }
+  }
+
+  _loadEmployeeData() {
     const employeeData = EmployeeService.getEmployeesPaginated(
       this.currentPage,
       this.pageSize
     );
     this.rows = employeeData.data;
     this.totalRows = employeeData.total;
+    this.requestUpdate();
   }
 
   _setViewMode(mode) {
@@ -179,22 +200,15 @@ export class EmployeeTable extends LocalizedComponent {
     const employee = event.detail.employee;
     const originalRow = this.rows.find(row => row.id === employee.id);
     
-    this.dispatchEvent(
-      new CustomEvent('delete', {
-        detail: originalRow,
-        bubbles: true,
-        composed: true
-      })
-    );
+    if (originalRow && confirm(`Are you sure you want to delete ${originalRow.firstName} ${originalRow.lastName}?`)) {
+      EmployeeService.deleteEmployee(originalRow.id);
+      this.selectedIds = this.selectedIds.filter(id => id !== originalRow.id);
+    }
   }
 
   _onPageChange(e) {
     this.currentPage = e.detail.page;
-    const employeeData = EmployeeService.getEmployeesPaginated(
-      this.currentPage,
-      this.pageSize
-    );
-    this.rows = employeeData.data;
+    this._loadEmployeeData();
     this.selectedIds = [];
   }
 

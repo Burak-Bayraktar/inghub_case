@@ -148,7 +148,6 @@ export class AppRoot extends LocalizedComponent {
   _onRouteChanged(event) {
     this.currentRoute = event.detail.route;
     this.routeParams = event.detail.params;
-    console.log('App-root: Route changed to', this.currentRoute, this.routeParams);
   }
 
   _setLocale(locale) {
@@ -186,7 +185,6 @@ export class AppRoot extends LocalizedComponent {
 
   _onEdit(event) {
     const employee = event.detail;
-    console.log('Edit employee:', employee);
     window.location.hash = `/edit/${employee.id}`;
   }
 

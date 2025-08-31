@@ -296,20 +296,35 @@ export class ItemForm extends LocalizedComponent {
       lastName: this.lastName,
       email: this.email,
       phone: this.phone,
-      department: this.department,
+      dept: this.department, // Convert to match Redux store format
       position: this.position,
-      dateOfEmployment: this.dateOfEmployment,
-      dateOfBirth: this.dateOfBirth,
+      doe: this._convertDateForSave(this.dateOfEmployment), // Convert to DD/MM/YYYY
+      dob: this._convertDateForSave(this.dateOfBirth), // Convert to DD/MM/YYYY
     };
 
-    console.log('Employee data:', employeeData);
+    try {
+      if (this.isEdit) {
+        EmployeeService.updateEmployee(this.employeeId, employeeData);
+        alert(msg('Employee updated successfully'));
+      } else {
+        EmployeeService.addEmployee(employeeData);
+        alert(msg('Employee created successfully'));
+      }
+      AppRouter.navigate('/');
+    } catch (error) {
+      console.error('Error saving employee:', error);
+      alert('An error occurred while saving the employee.');
+    }
+  }
 
-    alert(
-      this.isEdit
-        ? msg('Employee updated successfully')
-        : msg('Employee created successfully')
-    );
-    AppRouter.navigate('/');
+  _convertDateForSave(dateString) {
+    if (!dateString) return '';
+    // Convert from YYYY-MM-DD to DD/MM/YYYY format for storage
+    const parts = dateString.split('-');
+    if (parts.length === 3) {
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+    return dateString;
   }
 
   render() {

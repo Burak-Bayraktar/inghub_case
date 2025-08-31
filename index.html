@@ -8,6 +8,12 @@
   </head>
   <body>
     <app-root></app-root>
+    <script>
+      // Fix for Redux Toolkit browser compatibility
+      if (typeof process === 'undefined') {
+        window.process = { env: { NODE_ENV: 'development' } };
+      }
+    </script>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

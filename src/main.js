@@ -16,7 +16,7 @@ async function initializeApp() {
   if (localeFromUrl && ['en', 'tr'].includes(localeFromUrl)) {
     await setLocale(localeFromUrl);
   }
-  
+
   await import('./components/app-root.js');
 }
 
