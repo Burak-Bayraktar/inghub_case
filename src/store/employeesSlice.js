@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const employeesSlice = createSlice({
   name: 'employees',
   initialState: {
-    employees: []
+    employees: [],
+    viewMode: 'list'
   },
   reducers: {
     addEmployee: (state, action) => {
@@ -22,6 +23,9 @@ const employeesSlice = createSlice({
     },
     deleteEmployee: (state, action) => {
       state.employees = state.employees.filter(emp => emp.id !== action.payload);
+    },
+    setViewMode: (state, action) => {
+      state.viewMode = action.payload;
     }
   }
 });
@@ -29,7 +33,8 @@ const employeesSlice = createSlice({
 export const {
   addEmployee,
   updateEmployee,
-  deleteEmployee
+  deleteEmployee,
+  setViewMode
 } = employeesSlice.actions;
 
 export default employeesSlice.reducer;

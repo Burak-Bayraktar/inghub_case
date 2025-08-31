@@ -1,7 +1,8 @@
 import { 
   addEmployee, 
   updateEmployee, 
-  deleteEmployee
+  deleteEmployee,
+  setViewMode
 } from '../store/employeesSlice.js';
 import { store } from '../store/index.js';
 
@@ -49,6 +50,15 @@ export class EmployeeService {
     const store = this.getStore();
     store.dispatch(deleteEmployee(id));
     return true;
+  }
+
+  static getViewMode() {
+    return this.getStore().getState().employees.viewMode;
+  }
+
+  static setViewMode(mode) {
+    const store = this.getStore();
+    store.dispatch(setViewMode(mode));
   }
 
   static subscribe(callback) {

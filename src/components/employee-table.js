@@ -23,7 +23,7 @@ export class EmployeeTable extends LocalizedComponent {
     this.currentPage = 1;
     this.pageSize = 9;
     this.selectedIds = [];
-    this.viewMode = 'list';
+    this.viewMode = EmployeeService.getViewMode();
     this.totalRows = 0;
     this._storeUnsubscribe = null;
 
@@ -34,6 +34,7 @@ export class EmployeeTable extends LocalizedComponent {
     super.connectedCallback();
     this._storeUnsubscribe = EmployeeService.subscribe(() => {
       this._loadEmployeeData();
+      this.viewMode = EmployeeService.getViewMode();
     });
   }
 
@@ -55,7 +56,7 @@ export class EmployeeTable extends LocalizedComponent {
   }
 
   _setViewMode(mode) {
-    this.viewMode = mode;
+    EmployeeService.setViewMode(mode);
   }
 
   static styles = css`
