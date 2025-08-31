@@ -4,7 +4,7 @@ import { LocalizedComponent } from './localized-component.js';
 import { ukFlag, turkeyFlag } from '../assets/flags/index.js';
 
 import './app-router.js';
-import './item-list.js';
+import './employee-table.js';
 import './item-form.js';
 
 export class AppRoot extends LocalizedComponent {
@@ -173,13 +173,13 @@ export class AppRoot extends LocalizedComponent {
   _renderCurrentRoute() {
     switch (this.currentRoute) {
       case '/':
-        return html`<item-list></item-list>`;
+        return html`<employee-table></employee-table>`;
       case '/new':
         return html`<item-form .isEdit=${false}></item-form>`;
       case '/edit':
         return html`<item-form .isEdit=${true} .employeeId=${this.routeParams.id}></item-form>`;
       default:
-        return html`<item-list></item-list>`;
+        return html`<employee-table></employee-table>`;
     }
   }
 
