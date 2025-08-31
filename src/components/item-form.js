@@ -163,6 +163,7 @@ export class ItemForm extends LocalizedComponent {
     dateOfBirth: {type: String, state: true},
     isEdit: {type: Boolean},
     validationErrors: {type: Object, state: true},
+    originalEmployee: {type: Object, state: true},
   };
 
   constructor() {
@@ -178,6 +179,7 @@ export class ItemForm extends LocalizedComponent {
     this.dateOfBirth = '';
     this.isEdit = false;
     this.validationErrors = {};
+    this.originalEmployee = null;
   }
 
   willUpdate(changedProperties) {
@@ -252,6 +254,7 @@ export class ItemForm extends LocalizedComponent {
     this.position = '';
     this.dateOfBirth = '';
     this.validationErrors = {};
+    this.originalEmployee = null;
 
     const today = new Date().toISOString().split('T')[0];
     this.dateOfEmployment = today;
@@ -260,6 +263,13 @@ export class ItemForm extends LocalizedComponent {
   _loadEmployeeData(employeeId) {
     const employee = EmployeeService.getEmployeeById(employeeId);
     if (employee) {
+      // Store original data
+      this.originalEmployee = {
+        firstName: employee.firstName || '',
+        lastName: employee.lastName || ''
+      };
+      
+      // Load form data
       this.firstName = employee.firstName || '';
       this.lastName = employee.lastName || '';
       this.email = employee.email || '';
@@ -332,9 +342,9 @@ export class ItemForm extends LocalizedComponent {
       <page-title .title=${this.isEdit ? msg('Edit Employee') : msg('Add Employee')}></page-title>
 
       <div class="card">
-        ${this.isEdit && this.firstName && this.lastName ? html`
+        ${this.isEdit && this.originalEmployee ? html`
           <div style="padding: 16px 32px 0 32px; color: #6c757d; font-size: 14px;">
-            ${msg('You are editing')} ${this.firstName} ${this.lastName}
+            ${msg('You are editing')} ${this.originalEmployee.firstName} ${this.originalEmployee.lastName}
           </div>
         ` : ''}
         <form @submit=${this.onSubmit}>
