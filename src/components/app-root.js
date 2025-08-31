@@ -184,6 +184,12 @@ export class AppRoot extends LocalizedComponent {
     }
   }
 
+  _onEdit(event) {
+    const employee = event.detail;
+    console.log('Edit employee:', employee);
+    window.location.hash = `/edit/${employee.id}`;
+  }
+
   render() {
     return html`
       <app-router @route-changed=${this._onRouteChanged}></app-router>
@@ -215,7 +221,7 @@ export class AppRoot extends LocalizedComponent {
             </div>
           </div>
         </div>
-        <div id="outlet">
+        <div id="outlet" @edit=${this._onEdit}>
           ${this._renderCurrentRoute()}
         </div>
       </div>

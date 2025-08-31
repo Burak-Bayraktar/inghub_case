@@ -40,4 +40,8 @@ export class EmployeeService {
       totalPages: Math.ceil(mockEmployees.length / pageSize)
     };
   }
+
+  static getEmployeeById(id) {
+    return mockEmployees.find(employee => employee.id === id);
+  }
 }

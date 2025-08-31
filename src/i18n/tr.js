@@ -11,6 +11,7 @@
     export const templates = {
       's10d19e803a9f46d8': `Lütfen geçerli bir doğum tarihi girin`,
 's1e45a4d7635fbda7': `Departman`,
+'s1e73dd8e4ecf972f': `Telefon numarası girin (örn. +90 532 123 45 67)`,
 's227958cdd1d2f84d': `İşe giriş tarihi zorunludur`,
 's24aadbfb1b1a1a11': `Teknoloji`,
 's2c2b04f2561a1d4b': `Analitik`,
@@ -35,11 +36,11 @@
 's772528836550622c': `İşe Giriş Tarihi`,
 's7ddcaf6be8dc4146': `Çalışan başarıyla oluşturuldu`,
 's8a37652cc28d3c55': `Senior`,
+'s8a9fa9684ba37683': `Çalışanı Düzenle`,
 's8af61807443f32a4': `İşlemler`,
 's8cc8c2c826c7b858': `Doğum tarihi gelecekte olamaz`,
 's9145aa93cf917ae4': `Lütfen geçerli bir e-posta adresi girin`,
 's91a0ebbb1adb8218': `Lütfen geçerli bir doğum tarihi girin`,
-'s923142008291522e': `Telefon numarasını girin`,
 's95a75a2392af5780': `Soyad`,
 'sa9c6d50e25c88911': `Soyad zorunludur`,
 'sabe71888a848c247': `Çalışan Oluştur`,
@@ -49,6 +50,8 @@
 'sbaabb72d52808f49': `Departman seçin`,
 'sc14072558c8da80c': `Ad sadece harf içermeli ve 2-50 karakter uzunluğunda olmalıdır`,
 'sc1611c0558728a2a': `Pozisyon`,
+'sc8306ad1a022ddcc': `Çalışanı Güncelle`,
+'sc8c92fba5e861b32': `Düzenlediğiniz kişi`,
 'scd89af743f3c19e8': `Departman şunlardan biri olmalıdır: Analytics, Tech`,
 'scf226d2c20f172c2': `Telefon zorunludur`,
 'sd1f44f1a8bc20e67': `E-posta`,
@@ -58,6 +61,7 @@
 'sef49aec68fd1dc66': `Ad`,
 'sf07904be22a6165a': `E-posta zorunludur`,
 'sf1bc83d2509bafcf': `Telefon`,
+'sf43a2b173a151d1c': `Lütfen geçerli bir telefon numarası girin (örn. +90 532 123 45 67)`,
 'sf71f9578ca2ddb9a': `Departman zorunludur`,
     };
   

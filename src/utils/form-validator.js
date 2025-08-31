@@ -25,7 +25,7 @@ export class FormValidator {
     if (!formData.phone || formData.phone.trim() === '') {
       errors.phone = msg('Phone is required');
     } else if (!this._isValidPhone(formData.phone)) {
-      errors.phone = msg('Please enter a valid phone number');
+      errors.phone = msg('Please enter a valid phone number (e.g., +90 532 123 45 67)');
     }
 
     if (!formData.department || formData.department.trim() === '') {
@@ -73,8 +73,11 @@ export class FormValidator {
 
   static _isValidPhone(value) {
     if (!value) return false;
-    const phoneRegex = /^[+]?[\d\s\-()]{10,15}$/;
-    return phoneRegex.test(value);
+    
+    const cleaned = value.replace(/[\s\-()+ ]/g, '');    
+    const phoneRegex = /^(90[5][0-9]{9}|[5][0-9]{9}|[0-9]{10,15})$/;
+    
+    return phoneRegex.test(cleaned) && cleaned.length >= 10 && cleaned.length <= 15;
   }
 
   static _isValidDate(value) {

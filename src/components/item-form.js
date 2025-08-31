@@ -3,6 +3,7 @@ import {msg} from '@lit/localize';
 import {LocalizedComponent} from './localized-component.js';
 import {AppRouter} from './app-router.js';
 import {FormValidator} from '../utils/form-validator.js';
+import {EmployeeService} from '../services/employee-service.js';
 import './page-title.js';
 
 export class ItemForm extends LocalizedComponent {
@@ -257,14 +258,27 @@ export class ItemForm extends LocalizedComponent {
   }
 
   _loadEmployeeData(employeeId) {
-    this.firstName = 'Ahmet';
-    this.lastName = 'Yılmaz';
-    this.email = 'ahmet.yilmaz@ing.com';
-    this.phone = '+(90) 532 123 45 67';
-    this.department = 'Analytics';
-    this.position = 'Senior';
-    this.dateOfEmployment = '2022-09-23';
-    this.dateOfBirth = '1990-03-15';
+    const employee = EmployeeService.getEmployeeById(employeeId);
+    if (employee) {
+      this.firstName = employee.firstName || '';
+      this.lastName = employee.lastName || '';
+      this.email = employee.email || '';
+      this.phone = employee.phone || '';
+      this.department = employee.dept || '';  // dept -> department
+      this.position = employee.position || '';
+      this.dateOfEmployment = this._convertDateFormat(employee.doe) || '';  // doe -> dateOfEmployment
+      this.dateOfBirth = this._convertDateFormat(employee.dob) || '';  // dob -> dateOfBirth
+    }
+  }
+
+  _convertDateFormat(dateString) {
+    if (!dateString) return '';
+
+    const parts = dateString.split('/');
+    if (parts.length === 3) {
+      return `${parts[2]}-${parts[1].padStart(2, '0')}-${parts[0].padStart(2, '0')}`;
+    }
+    return dateString;
   }
 
   onSubmit(e) {
@@ -300,9 +314,14 @@ export class ItemForm extends LocalizedComponent {
 
   render() {
     return html`
-      <page-title .title=${msg('Add Employee')}></page-title>
+      <page-title .title=${this.isEdit ? msg('Edit Employee') : msg('Add Employee')}></page-title>
 
       <div class="card">
+        ${this.isEdit && this.firstName && this.lastName ? html`
+          <div style="padding: 16px 32px 0 32px; color: #6c757d; font-size: 14px;">
+            ${msg('You are editing')} ${this.firstName} ${this.lastName}
+          </div>
+        ` : ''}
         <form @submit=${this.onSubmit}>
           <div class="form-grid">
             <div class="form-field">
@@ -369,7 +388,7 @@ export class ItemForm extends LocalizedComponent {
                 .value=${this.phone}
                 @input=${(e) => this._onInputChange('phone', e.target.value)}
                 required
-                placeholder="${msg('Enter phone number')}"
+                placeholder="${msg('Enter phone number (e.g., +90 532 123 45 67)')}"
               />
               ${this.validationErrors.phone
                 ? html`<span class="form-error"
@@ -470,7 +489,7 @@ export class ItemForm extends LocalizedComponent {
               ${msg('Cancel')}
             </button>
             <button type="submit" class="btn btn-primary">
-              ${msg('Create Employee')}
+              ${this.isEdit ? msg('Update Employee') : msg('Create Employee')}
             </button>
           </div>
         </form>

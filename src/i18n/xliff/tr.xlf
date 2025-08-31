@@ -86,10 +86,6 @@
   <source>Enter email address</source>
   <target>E-posta adresini girin</target>
 </trans-unit>
-<trans-unit id="s923142008291522e">
-  <source>Enter phone number</source>
-  <target>Telefon numarasını girin</target>
-</trans-unit>
 <trans-unit id="sabe71888a848c247">
   <source>Create Employee</source>
   <target>Çalışan Oluştur</target>
@@ -201,6 +197,26 @@
 <trans-unit id="s8a37652cc28d3c55">
   <source>Senior</source>
   <target>Senior</target>
+</trans-unit>
+<trans-unit id="s8a9fa9684ba37683">
+  <source>Edit Employee</source>
+  <target>Çalışanı Düzenle</target>
+</trans-unit>
+<trans-unit id="sc8306ad1a022ddcc">
+  <source>Update Employee</source>
+  <target>Çalışanı Güncelle</target>
+</trans-unit>
+<trans-unit id="s1e73dd8e4ecf972f">
+  <source>Enter phone number (e.g., +90 532 123 45 67)</source>
+  <target>Telefon numarası girin (örn. +90 532 123 45 67)</target>
+</trans-unit>
+<trans-unit id="sf43a2b173a151d1c">
+  <source>Please enter a valid phone number (e.g., +90 532 123 45 67)</source>
+  <target>Lütfen geçerli bir telefon numarası girin (örn. +90 532 123 45 67)</target>
+</trans-unit>
+<trans-unit id="sc8c92fba5e861b32">
+  <source>You are editing</source>
+  <target>Düzenlediğiniz kişi</target>
 </trans-unit>
 </body>
 </file>
