@@ -20,5 +20,4 @@ async function initializeApp() {
   await import('./components/app-root.js');
 }
 
-// Initialize the app
 initializeApp();

@@ -1,18 +1,22 @@
 import { html, css } from 'lit';
-import { Router } from '@vaadin/router';
 import { msg } from '@lit/localize';
 import { LocalizedComponent } from './localized-component.js';
 import { ukFlag, turkeyFlag } from '../assets/flags/index.js';
 
+import './app-router.js';
 import './item-list.js';
 import './item-form.js';
 
 export class AppRoot extends LocalizedComponent {
   static properties = {
+    currentRoute: { type: String, state: true },
+    routeParams: { type: Object, state: true }
   };
 
   constructor() {
     super();
+    this.currentRoute = '/';
+    this.routeParams = {};
   }
   static styles = css`
     :host { display:block; }
@@ -170,15 +174,12 @@ export class AppRoot extends LocalizedComponent {
 
   firstUpdated() {
     super.firstUpdated();
-    const outlet = this.renderRoot.querySelector('#outlet');
-    const router = new Router(outlet, { useHash: true });
+  }
 
-    router.setRoutes([
-      { path: '/', component: 'item-list' },
-      { path: '/edit/:id', component: 'item-form' },
-      { path: '/new',  component: 'item-form' },
-      { path: '(.*)', action: (ctx, commands) => commands.redirect('/') },
-    ]);
+  _onRouteChanged(event) {
+    this.currentRoute = event.detail.route;
+    this.routeParams = event.detail.params;
+    console.log('App-root: Route changed to', this.currentRoute, this.routeParams);
   }
 
   _setLocale(locale) {
@@ -201,8 +202,23 @@ export class AppRoot extends LocalizedComponent {
     return window.appGetLocale ? window.appGetLocale() : 'en';
   }
 
+  _renderCurrentRoute() {
+    switch (this.currentRoute) {
+      case '/':
+        return html`<item-list></item-list>`;
+      case '/new':
+        return html`<item-form .isEdit=${false}></item-form>`;
+      case '/edit':
+        return html`<item-form .isEdit=${true} .employeeId=${this.routeParams.id}></item-form>`;
+      default:
+        return html`<item-list></item-list>`;
+    }
+  }
+
   render() {
     return html`
+      <app-router @route-changed=${this._onRouteChanged}></app-router>
+      
       <div class="container">
         <div class="header-top">
           <div class="header-top-left">
@@ -210,8 +226,8 @@ export class AppRoot extends LocalizedComponent {
           </div>
           <div class="header-top-right">
             <div class="header-top-nav">
-              <a href="#/">${msg('Employees')}</a>
-              <a href="#/new">${msg('Add New')}</a>
+              <a href="#/" class="${this.currentRoute === '/' ? 'active' : ''}">${msg('Employees')}</a>
+              <a href="#/new" class="${this.currentRoute === '/new' ? 'active' : ''}">${msg('Add New')}</a>
             </div>
             <div class="language-switcher">
               ${this._getCurrentLocale() === 'en' ? html`
@@ -232,10 +248,16 @@ export class AppRoot extends LocalizedComponent {
         </div>
         <header>
           <div class="header-left">
-            <h1 class="page-title">${msg('Employee Management')}</h1>
+            <h1 class="page-title">
+              ${this.currentRoute === '/new' ? msg('Add New Employee') : 
+                this.currentRoute === '/edit' ? msg('Edit Employee') : 
+                msg('Employee Management')}
+            </h1>
           </div>
         </header>
-        <div id="outlet"></div>
+        <div id="outlet">
+          ${this._renderCurrentRoute()}
+        </div>
       </div>
     `;
   }

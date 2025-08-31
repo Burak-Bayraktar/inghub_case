@@ -13,7 +13,6 @@ export class LocalizedComponent extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    // Locale değişikliğini dinle
     this._onLocaleChange = () => {
       this.currentLocale = window.appGetLocale ? window.appGetLocale() : 'en';
     };
@@ -26,5 +25,4 @@ export class LocalizedComponent extends LitElement {
   }
 }
 
-// Localized decorator'ını uygula
 localized(LocalizedComponent);
