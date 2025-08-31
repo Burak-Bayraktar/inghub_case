@@ -99,7 +99,6 @@ export class EmployeeTable extends LocalizedComponent {
       justify-content: center;
     }
 
-    /* Mobile responsive */
     @media (max-width: 768px) {
       .table-header {
         padding: 12px 16px;

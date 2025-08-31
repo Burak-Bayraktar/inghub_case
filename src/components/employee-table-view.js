@@ -139,7 +139,6 @@ export class EmployeeTableView extends LocalizedComponent {
       fill: currentColor;
     }
 
-    /* Responsive Design */
     @media (max-width: 1200px) {
       :host {
         padding: 16px;

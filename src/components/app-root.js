@@ -93,7 +93,6 @@ export class AppRoot extends LocalizedComponent {
     }
     .container { margin: 0; padding: 0; }
     
-    /* Responsive Design */
     @media (max-width: 768px) {
       .header-top {
         padding: 0 16px;

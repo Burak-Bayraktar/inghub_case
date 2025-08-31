@@ -36,7 +36,6 @@ export class EmployeeListView extends LocalizedComponent {
       display: block;
     }
     
-    /* Table View Styles (ters çevrilmiş - list view aslında table gibi) */
     .table-view {
       display: block;
     }

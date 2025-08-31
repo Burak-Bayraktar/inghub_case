@@ -34,45 +34,173 @@
   <source>Actions</source>
   <target>İşlemler</target>
 </trans-unit>
-<trans-unit id="s8a4ff2bd9c13498c">
-  <source>Record</source>
-  <target>Kayıt</target>
-</trans-unit>
-<trans-unit id="s623dba9a2d66680e">
-  <source>You are in edit mode</source>
-  <target>Düzenleme modundasınız</target>
-</trans-unit>
-<trans-unit id="s99f110d27e30b289">
-  <source>Title</source>
-  <target>Başlık</target>
-</trans-unit>
-<trans-unit id="s6686fcc6d2c8f0bd">
-  <source>Note</source>
-  <target>Not</target>
-</trans-unit>
 <trans-unit id="s2ceb11be2290bb1b">
   <source>Cancel</source>
   <target>İptal</target>
-</trans-unit>
-<trans-unit id="s33f85f24c0f5f008">
-  <source>Save</source>
-  <target>Kaydet</target>
-</trans-unit>
-<trans-unit id="s382a2aa3984474dd">
-  <source>Create</source>
-  <target>Oluştur</target>
 </trans-unit>
 <trans-unit id="s2c57913ffd36d298">
   <source>First Name</source>
   <target>Ad</target>
 </trans-unit>
-<trans-unit id="scba00271d50c74f6">
-  <source>Employees</source>
-  <target>Çalışanlar</target>
-</trans-unit>
 <trans-unit id="s4ec58dc6a75753da">
   <source>Add New</source>
   <target>Yeni Ekle</target>
+</trans-unit>
+<trans-unit id="s3d9ff57b4e7cc370">
+  <source>Table View</source>
+  <target>Tablo Görünümü</target>
+</trans-unit>
+<trans-unit id="s70315aaffba9e636">
+  <source>List View</source>
+  <target>Liste Görünümü</target>
+</trans-unit>
+<trans-unit id="s64ef2a6c2dd1d3d1">
+  <source>Edit</source>
+  <target>Düzenle</target>
+</trans-unit>
+<trans-unit id="sdc673e73b5c13aea">
+  <source>Delete</source>
+  <target>Sil</target>
+</trans-unit>
+<trans-unit id="sef49aec68fd1dc66">
+  <source>Name</source>
+  <target>Ad</target>
+</trans-unit>
+<trans-unit id="s6fb60ded64bf6cb3">
+  <source>Employee updated successfully</source>
+  <target>Çalışan başarıyla güncellendi</target>
+</trans-unit>
+<trans-unit id="s7ddcaf6be8dc4146">
+  <source>Employee created successfully</source>
+  <target>Çalışan başarıyla oluşturuldu</target>
+</trans-unit>
+<trans-unit id="s4786054cd6228e02">
+  <source>Enter first name</source>
+  <target>Adı girin</target>
+</trans-unit>
+<trans-unit id="s4feca3cbb4736ce6">
+  <source>Enter last name</source>
+  <target>Soyadı girin</target>
+</trans-unit>
+<trans-unit id="s327f2b3268051c5d">
+  <source>Enter email address</source>
+  <target>E-posta adresini girin</target>
+</trans-unit>
+<trans-unit id="s923142008291522e">
+  <source>Enter phone number</source>
+  <target>Telefon numarasını girin</target>
+</trans-unit>
+<trans-unit id="sabe71888a848c247">
+  <source>Create Employee</source>
+  <target>Çalışan Oluştur</target>
+</trans-unit>
+<trans-unit id="s3db6c3999daeecdb">
+  <source>Employee List</source>
+  <target>Çalışan Listesi</target>
+</trans-unit>
+<trans-unit id="s32c9b3dd030fc24c">
+  <source>Add Employee</source>
+  <target>Çalışan Ekle</target>
+</trans-unit>
+<trans-unit id="sb4a8f3c65e467a70">
+  <source>Please fix all validation errors before submitting</source>
+  <target>Göndermeden önce lütfen tüm doğrulama hatalarını düzeltin</target>
+</trans-unit>
+<trans-unit id="sbaabb72d52808f49">
+  <source>Select department</source>
+  <target>Departman seçin</target>
+</trans-unit>
+<trans-unit id="sd5e92c6b1f729a64">
+  <source>Select position</source>
+  <target>Pozisyon seçin</target>
+</trans-unit>
+<trans-unit id="sda8ea7031a8a7d69">
+  <source>First Name is required</source>
+  <target>Ad zorunludur</target>
+</trans-unit>
+<trans-unit id="sc14072558c8da80c">
+  <source>First Name must contain only letters and be 2-50 characters long</source>
+  <target>Ad sadece harf içermeli ve 2-50 karakter uzunluğunda olmalıdır</target>
+</trans-unit>
+<trans-unit id="sa9c6d50e25c88911">
+  <source>Last Name is required</source>
+  <target>Soyad zorunludur</target>
+</trans-unit>
+<trans-unit id="sb910033f7a446494">
+  <source>Last Name must contain only letters and be 2-50 characters long</source>
+  <target>Soyad sadece harf içermeli ve 2-50 karakter uzunluğunda olmalıdır</target>
+</trans-unit>
+<trans-unit id="sf07904be22a6165a">
+  <source>Email is required</source>
+  <target>E-posta zorunludur</target>
+</trans-unit>
+<trans-unit id="s9145aa93cf917ae4">
+  <source>Please enter a valid email address</source>
+  <target>Lütfen geçerli bir e-posta adresi girin</target>
+</trans-unit>
+<trans-unit id="scf226d2c20f172c2">
+  <source>Phone is required</source>
+  <target>Telefon zorunludur</target>
+</trans-unit>
+<trans-unit id="s732d031b2be46181">
+  <source>Please enter a valid phone number</source>
+  <target>Lütfen geçerli bir telefon numarası girin</target>
+</trans-unit>
+<trans-unit id="sf71f9578ca2ddb9a">
+  <source>Department is required</source>
+  <target>Departman zorunludur</target>
+</trans-unit>
+<trans-unit id="scd89af743f3c19e8">
+  <source>Department must be one of: Analytics, Tech</source>
+  <target>Departman şunlardan biri olmalıdır: Analytics, Tech</target>
+</trans-unit>
+<trans-unit id="s35911e54e5c305df">
+  <source>Position is required</source>
+  <target>Pozisyon zorunludur</target>
+</trans-unit>
+<trans-unit id="s578e15ad8684849e">
+  <source>Position must be one of: Junior, Medior, Senior</source>
+  <target>Pozisyon şunlardan biri olmalıdır: Junior, Medior, Senior</target>
+</trans-unit>
+<trans-unit id="s227958cdd1d2f84d">
+  <source>Date of Employment is required</source>
+  <target>İşe giriş tarihi zorunludur</target>
+</trans-unit>
+<trans-unit id="s3f3193702808eea1">
+  <source>Please enter a valid Date of Employment</source>
+  <target>Lütfen geçerli bir işe giriş tarihi girin</target>
+</trans-unit>
+<trans-unit id="s91a0ebbb1adb8218">
+  <source>Please enter a valid Date of Birth</source>
+  <target>Lütfen geçerli bir doğum tarihi girin</target>
+</trans-unit>
+<trans-unit id="s8cc8c2c826c7b858">
+  <source>Date of birth cannot be in the future</source>
+  <target>Doğum tarihi gelecekte olamaz</target>
+</trans-unit>
+<trans-unit id="s10d19e803a9f46d8">
+  <source>Please enter a valid date of birth</source>
+  <target>Lütfen geçerli bir doğum tarihi girin</target>
+</trans-unit>
+<trans-unit id="s2c2b04f2561a1d4b">
+  <source>Analytics</source>
+  <target>Analitik</target>
+</trans-unit>
+<trans-unit id="s24aadbfb1b1a1a11">
+  <source>Tech</source>
+  <target>Teknoloji</target>
+</trans-unit>
+<trans-unit id="s7404d9208a486318">
+  <source>Junior</source>
+  <target>Junior</target>
+</trans-unit>
+<trans-unit id="sacc4d771f79ccced">
+  <source>Medior</source>
+  <target>Medior</target>
+</trans-unit>
+<trans-unit id="s8a37652cc28d3c55">
+  <source>Senior</source>
+  <target>Senior</target>
 </trans-unit>
 </body>
 </file>
