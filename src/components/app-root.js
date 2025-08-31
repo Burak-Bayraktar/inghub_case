@@ -8,6 +8,12 @@ import './item-list.js';
 import './item-form.js';
 
 export class AppRoot extends LocalizedComponent {
+  static properties = {
+  };
+
+  constructor() {
+    super();
+  }
   static styles = css`
     :host { display:block; }
     .header-top {
@@ -87,15 +93,23 @@ export class AppRoot extends LocalizedComponent {
       padding: 16px 20px; 
       display: flex; 
       align-items: center; 
-      justify-content: center;
+      justify-content: space-between;
       background: #fff;
       border-bottom: 1px solid #e9ecef;
+    }
+    .header-left {
+      flex: 1;
     }
     .page-title {
       font-size: 24px;
       font-weight: 600;
       color: #ff6200;
       margin: 0;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .container { margin: 0; padding: 0; }
     
@@ -128,6 +142,9 @@ export class AppRoot extends LocalizedComponent {
       .page-title {
         font-size: 20px;
       }
+      .header-right {
+        gap: 6px;
+      }
     }
     
     @media (max-width: 480px) {
@@ -150,6 +167,39 @@ export class AppRoot extends LocalizedComponent {
       }
     }
   `;
+
+  firstUpdated() {
+    super.firstUpdated();
+    const outlet = this.renderRoot.querySelector('#outlet');
+    const router = new Router(outlet, { useHash: true });
+
+    router.setRoutes([
+      { path: '/', component: 'item-list' },
+      { path: '/edit/:id', component: 'item-form' },
+      { path: '/new',  component: 'item-form' },
+      { path: '(.*)', action: (ctx, commands) => commands.redirect('/') },
+    ]);
+  }
+
+  _setLocale(locale) {
+    if (window.appSetLocale) {
+      window.appSetLocale(locale).then(() => {
+        const url = new URL(window.location);
+        url.searchParams.set('locale', locale);
+        window.history.replaceState({}, '', url);
+        
+        window.dispatchEvent(new CustomEvent('locale-changed', { 
+          detail: { locale } 
+        }));
+        
+        this.requestUpdate();
+      });
+    }
+  }
+
+  _getCurrentLocale() {
+    return window.appGetLocale ? window.appGetLocale() : 'en';
+  }
 
   render() {
     return html`
@@ -181,46 +231,13 @@ export class AppRoot extends LocalizedComponent {
           </div>
         </div>
         <header>
-          <h1 class="page-title">${msg('Employee Management')}</h1>
+          <div class="header-left">
+            <h1 class="page-title">${msg('Employee Management')}</h1>
+          </div>
         </header>
         <div id="outlet"></div>
       </div>
     `;
-  }
-
-  firstUpdated() {
-    const outlet = this.renderRoot.querySelector('#outlet');
-    const router = new Router(outlet, { useHash: true });
-
-    router.setRoutes([
-      { path: '/', component: 'item-list' },
-      { path: '/new',  component: 'item-form' },
-      { path: '/edit/:id', component: 'item-form' },
-      { path: '(.*)', action: (ctx, commands) => commands.redirect('/') },
-    ]);
-  }
-
-  _setLocale(locale) {
-    if (window.appSetLocale) {
-      window.appSetLocale(locale).then(() => {
-        // URL'i güncelle
-        const url = new URL(window.location);
-        url.searchParams.set('locale', locale);
-        window.history.replaceState({}, '', url);
-        
-        // Global locale change event fırlat
-        window.dispatchEvent(new CustomEvent('locale-changed', { 
-          detail: { locale } 
-        }));
-        
-        // App root'u yeniden render et
-        this.requestUpdate();
-      });
-    }
-  }
-
-  _getCurrentLocale() {
-    return window.appGetLocale ? window.appGetLocale() : 'en';
   }
 }
 
