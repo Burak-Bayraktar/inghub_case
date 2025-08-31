@@ -7,6 +7,7 @@ import './pagination.js';
 import './employee-table-view.js';
 import './employee-list-view.js';
 import './page-title.js';
+import './confirmation-modal.js';
 
 export class EmployeeTable extends LocalizedComponent {
   static properties = {
@@ -16,6 +17,8 @@ export class EmployeeTable extends LocalizedComponent {
     pageSize: {type: Number},
     totalRows: {type: Number, state: true},
     viewMode: {type: String, state: true},
+    showDeleteModal: {type: Boolean, state: true},
+    employeeToDelete: {type: Object, state: true},
   };
 
   constructor() {
@@ -25,6 +28,8 @@ export class EmployeeTable extends LocalizedComponent {
     this.selectedIds = [];
     this.viewMode = EmployeeService.getViewMode();
     this.totalRows = 0;
+    this.showDeleteModal = false;
+    this.employeeToDelete = null;
     this._storeUnsubscribe = null;
 
     this._loadEmployeeData();
@@ -238,10 +243,27 @@ export class EmployeeTable extends LocalizedComponent {
     const employee = event.detail.employee;
     const originalRow = this.rows.find(row => row.id === employee.id);
     
-    if (originalRow && confirm(`Are you sure you want to delete ${originalRow.firstName} ${originalRow.lastName}?`)) {
-      EmployeeService.deleteEmployee(originalRow.id);
-      this.selectedIds = this.selectedIds.filter(id => id !== originalRow.id);
+    if (originalRow) {
+      this.employeeToDelete = originalRow;
+      this.showDeleteModal = true;
     }
+  }
+
+  _onDeleteConfirm() {
+    if (this.employeeToDelete) {
+      EmployeeService.deleteEmployee(this.employeeToDelete.id);
+      this.selectedIds = this.selectedIds.filter(id => id !== this.employeeToDelete.id);
+    }
+    this._closeDeleteModal();
+  }
+
+  _onDeleteCancel() {
+    this._closeDeleteModal();
+  }
+
+  _closeDeleteModal() {
+    this.showDeleteModal = false;
+    this.employeeToDelete = null;
   }
 
   _onPageChange(e) {
@@ -319,6 +341,18 @@ export class EmployeeTable extends LocalizedComponent {
           </div>
         ` : ''}
       </div>
+      
+      <confirmation-modal
+        .open=${this.showDeleteModal}
+        .title=${msg('Are you sure?')}
+        .message=${this.employeeToDelete 
+          ? `${msg('Selected Employee record of')} ${this.employeeToDelete.firstName} ${this.employeeToDelete.lastName} ${msg('will be deleted')}`
+          : ''}
+        .confirmText=${msg('Proceed')}
+        .cancelText=${msg('Cancel')}
+        @confirm=${this._onDeleteConfirm}
+        @cancel=${this._onDeleteCancel}
+      ></confirmation-modal>
     `;
   }
 }

@@ -222,6 +222,22 @@
   <source>Start by adding your first employee to the system.</source>
   <target>Sisteme ilk çalışanınızı ekleyerek başlayın.</target>
 </trans-unit>
+<trans-unit id="s2714784162ec459d">
+  <source>Proceed</source>
+  <target>Devam Et</target>
+</trans-unit>
+<trans-unit id="s268ecd1cef45a9a8">
+  <source>Are you sure?</source>
+  <target>Emin misiniz?</target>
+</trans-unit>
+<trans-unit id="sd1621540f2ac20e6">
+  <source>Selected Employee record of</source>
+  <target>Seçili çalışan kaydı</target>
+</trans-unit>
+<trans-unit id="s628179a5df2af433">
+  <source>will be deleted</source>
+  <target>silinecek</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

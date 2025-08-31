@@ -263,13 +263,11 @@ export class ItemForm extends LocalizedComponent {
   _loadEmployeeData(employeeId) {
     const employee = EmployeeService.getEmployeeById(employeeId);
     if (employee) {
-      // Store original data
       this.originalEmployee = {
         firstName: employee.firstName || '',
         lastName: employee.lastName || ''
       };
       
-      // Load form data
       this.firstName = employee.firstName || '';
       this.lastName = employee.lastName || '';
       this.email = employee.email || '';
