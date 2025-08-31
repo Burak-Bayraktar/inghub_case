@@ -138,10 +138,6 @@
   <source>Phone is required</source>
   <target>Telefon zorunludur</target>
 </trans-unit>
-<trans-unit id="s732d031b2be46181">
-  <source>Please enter a valid phone number</source>
-  <target>Lütfen geçerli bir telefon numarası girin</target>
-</trans-unit>
 <trans-unit id="sf71f9578ca2ddb9a">
   <source>Department is required</source>
   <target>Departman zorunludur</target>
@@ -217,6 +213,14 @@
 <trans-unit id="sc8c92fba5e861b32">
   <source>You are editing</source>
   <target>Düzenlediğiniz kişi</target>
+</trans-unit>
+<trans-unit id="sf8758effabc86aeb">
+  <source>No employees found</source>
+  <target>Çalışan bulunamadı</target>
+</trans-unit>
+<trans-unit id="sd76ded267d43a171">
+  <source>Start by adding your first employee to the system.</source>
+  <target>Sisteme ilk çalışanınızı ekleyerek başlayın.</target>
 </trans-unit>
 </body>
 </file>

@@ -120,6 +120,43 @@ export class EmployeeTable extends LocalizedComponent {
       justify-content: center;
     }
 
+    .empty-state {
+      padding: 60px 20px;
+      text-align: center;
+      background: white;
+    }
+
+    .empty-state-content h3 {
+      color: #495057;
+      font-size: 1.5rem;
+      margin: 0 0 12px 0;
+      font-weight: 600;
+    }
+
+    .empty-state-content p {
+      color: #6c757d;
+      font-size: 1rem;
+      margin: 0 0 24px 0;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .add-employee-btn {
+      display: inline-block;
+      background: #ff6200;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+
+    .add-employee-btn:hover {
+      background: #e55a00;
+    }
+
     @media (max-width: 768px) {
       .table-header {
         padding: 12px 16px;
@@ -235,7 +272,19 @@ export class EmployeeTable extends LocalizedComponent {
           </div>
         </div>
         
-        ${this.viewMode === 'list' 
+        ${this.totalRows === 0 
+          ? html`
+            <div class="empty-state">
+              <div class="empty-state-content">
+                <h3>${msg('No employees found')}</h3>
+                <p>${msg('Start by adding your first employee to the system.')}</p>
+                <a href="#/new" class="add-employee-btn">
+                  ${msg('Add Employee')}
+                </a>
+              </div>
+            </div>
+          `
+          : this.viewMode === 'list' 
           ? html`
             <employee-list-view 
               employees=${JSON.stringify(formattedEmployees)}
@@ -258,14 +307,16 @@ export class EmployeeTable extends LocalizedComponent {
           `
         }
         
-        <div class="pagination-container">
-          <app-pagination
-            .page=${this.currentPage}
-            .pageSize=${this.pageSize}
-            .total=${this.totalRows}
-            @page-change=${this._onPageChange}
-          ></app-pagination>
-        </div>
+        ${this.totalRows > 0 ? html`
+          <div class="pagination-container">
+            <app-pagination
+              .page=${this.currentPage}
+              .pageSize=${this.pageSize}
+              .total=${this.totalRows}
+              @page-change=${this._onPageChange}
+            ></app-pagination>
+          </div>
+        ` : ''}
       </div>
     `;
   }

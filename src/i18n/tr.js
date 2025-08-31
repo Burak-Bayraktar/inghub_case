@@ -31,7 +31,6 @@
 's64ef2a6c2dd1d3d1': `Düzenle`,
 's6fb60ded64bf6cb3': `Çalışan başarıyla güncellendi`,
 's70315aaffba9e636': `Liste Görünümü`,
-'s732d031b2be46181': `Lütfen geçerli bir telefon numarası girin`,
 's7404d9208a486318': `Junior`,
 's772528836550622c': `İşe Giriş Tarihi`,
 's7ddcaf6be8dc4146': `Çalışan başarıyla oluşturuldu`,
@@ -56,6 +55,7 @@
 'scf226d2c20f172c2': `Telefon zorunludur`,
 'sd1f44f1a8bc20e67': `E-posta`,
 'sd5e92c6b1f729a64': `Pozisyon seçin`,
+'sd76ded267d43a171': `Sisteme ilk çalışanınızı ekleyerek başlayın.`,
 'sda8ea7031a8a7d69': `Ad zorunludur`,
 'sdc673e73b5c13aea': `Sil`,
 'sef49aec68fd1dc66': `Ad`,
@@ -63,5 +63,6 @@
 'sf1bc83d2509bafcf': `Telefon`,
 'sf43a2b173a151d1c': `Lütfen geçerli bir telefon numarası girin (örn. +90 532 123 45 67)`,
 'sf71f9578ca2ddb9a': `Departman zorunludur`,
+'sf8758effabc86aeb': `Çalışan bulunamadı`,
     };
   
