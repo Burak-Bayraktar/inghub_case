@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+let idCounter = 1;
+
 const employeesSlice = createSlice({
   name: 'employees',
   initialState: {
@@ -10,7 +12,7 @@ const employeesSlice = createSlice({
     addEmployee: (state, action) => {
       const newEmployee = {
         ...action.payload,
-        id: Date.now().toString()
+        id: (Date.now() + idCounter++).toString()
       };
       state.employees.push(newEmployee);
     },
@@ -26,6 +28,11 @@ const employeesSlice = createSlice({
     },
     setViewMode: (state, action) => {
       state.viewMode = action.payload;
+    },
+    reset: (state) => {
+      state.employees = [];
+      state.viewMode = 'list';
+      idCounter = 1;
     }
   }
 });
@@ -34,7 +41,8 @@ export const {
   addEmployee,
   updateEmployee,
   deleteEmployee,
-  setViewMode
+  setViewMode,
+  reset
 } = employeesSlice.actions;
 
 export default employeesSlice.reducer;

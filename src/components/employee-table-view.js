@@ -17,6 +17,9 @@ export class EmployeeTableView extends LocalizedComponent {
 
   get employeeList() {
     try {
+      if (!this.employees || this.employees === 'null' || this.employees === 'undefined') {
+        return [];
+      }
       return JSON.parse(this.employees);
     } catch {
       return [];
@@ -231,46 +234,46 @@ export class EmployeeTableView extends LocalizedComponent {
   render() {
     return html`
       <div class="grid-view">
-        ${this.employeeList.map(
+        ${(this.employeeList || []).map(
           (employee) => html`
             <div class="employee-card">
               <div class="card-header">
                 <div class="card-field">
                   <span class="card-label">${msg('First Name')}</span>
-                  <span class="card-value">${employee.name.split(' ')[0]}</span>
+                  <span class="card-value">${(employee.name || '').split(' ')[0] || ''}</span>
                 </div>
                 <div class="card-field">
                   <span class="card-label">${msg('Last Name')}</span>
-                  <span class="card-value">${employee.name.split(' ').slice(1).join(' ')}</span>
+                  <span class="card-value">${(employee.name || '').split(' ').slice(1).join(' ')}</span>
                 </div>
               </div>
               
               <div class="card-content">
                 <div class="card-field">
                   <span class="card-label">${msg('Date of Employment')}</span>
-                  <span class="card-value">${employee.dateOfEmployment}</span>
+                  <span class="card-value">${employee.dateOfEmployment || ''}</span>
                 </div>
                 <div class="card-field">
                   <span class="card-label">${msg('Date of Birth')}</span>
-                  <span class="card-value">${employee.dateOfBirth}</span>
+                  <span class="card-value">${employee.dateOfBirth || ''}</span>
                 </div>
                 <div class="card-field">
                   <span class="card-label">${msg('Phone')}</span>
-                  <span class="card-value">${employee.phone}</span>
+                  <span class="card-value">${employee.phone || ''}</span>
                 </div>
                 <div class="card-field">
                   <span class="card-label">${msg('Email')}</span>
                   <span class="card-value">
-                    <a href="mailto:${employee.email}">${employee.email}</a>
+                    <a href="mailto:${employee.email || ''}">${employee.email || ''}</a>
                   </span>
                 </div>
                 <div class="card-field">
                   <span class="card-label">${msg('Department')}</span>
-                  <span class="card-value">${employee.department}</span>
+                  <span class="card-value">${employee.department || ''}</span>
                 </div>
                 <div class="card-field">
                   <span class="card-label">${msg('Position')}</span>
-                  <span class="card-value">${employee.position}</span>
+                  <span class="card-value">${employee.position || ''}</span>
                 </div>
               </div>
               

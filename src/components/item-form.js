@@ -327,7 +327,6 @@ export class ItemForm extends LocalizedComponent {
 
   _convertDateForSave(dateString) {
     if (!dateString) return '';
-    // Convert from YYYY-MM-DD to DD/MM/YYYY format for storage
     const parts = dateString.split('-');
     if (parts.length === 3) {
       return `${parts[2]}/${parts[1]}/${parts[0]}`;

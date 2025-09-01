@@ -171,7 +171,7 @@ export class ConfirmationModal extends LocalizedComponent {
         <div class="modal">
           <div class="modal-header">
             <h3 class="modal-title">${this.title}</h3>
-            <button class="close-btn" @click=${this._onCancel}>×</button>
+            <button type="button" class="close-btn" @click=${this._onCancel}>×</button>
           </div>
           
           <div class="modal-body">
@@ -179,10 +179,10 @@ export class ConfirmationModal extends LocalizedComponent {
           </div>
           
           <div class="modal-footer">
-            <button class="btn btn-secondary" @click=${this._onCancel}>
+            <button type="button" class="btn btn-secondary" @click=${this._onCancel}>
               ${this.cancelText}
             </button>
-            <button class="btn btn-danger" @click=${this._onConfirm}>
+            <button type="button" class="btn btn-danger" @click=${this._onConfirm}>
               ${this.confirmText}
             </button>
           </div>

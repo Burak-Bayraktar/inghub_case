@@ -176,8 +176,10 @@ export class AppRoot extends LocalizedComponent {
         return html`<employee-table></employee-table>`;
       case '/new':
         return html`<item-form .isEdit=${false}></item-form>`;
-      case '/edit':
-        return html`<item-form .isEdit=${true} .employeeId=${this.routeParams.id}></item-form>`;
+      case '/edit': {
+        const employeeId = this.routeParams?.id || '';
+        return html`<item-form .isEdit=${true} .employeeId=${employeeId}></item-form>`;
+      }
       default:
         return html`<employee-table></employee-table>`;
     }

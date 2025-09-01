@@ -7,8 +7,18 @@ import {
 import { store } from '../store/index.js';
 
 export class EmployeeService {
+  static _testStore = null;
+  
+  static get store() {
+    return this._testStore || window.__MOCK_STORE__ || store;
+  }
+  
+  static set store(testStore) {
+    this._testStore = testStore;
+  }
+  
   static getStore() {
-    return store;
+    return this.store;
   }
 
   static getAllEmployees() {
@@ -30,25 +40,58 @@ export class EmployeeService {
   }
 
   static getEmployeeById(id) {
+    if (id === null || id === undefined) {
+      return undefined;
+    }
     const employees = this.getAllEmployees();
-    return employees.find(employee => employee.id === id);
+    return employees.find(employee => employee.id === id.toString());
+  }
+
+  static isEmailUnique(email, excludeEmployeeId = null) {
+    if (!email) return true;
+    const employees = this.getAllEmployees();
+    return !employees.some(employee => 
+      employee.email === email && employee.id !== excludeEmployeeId?.toString()
+    );
   }
 
   static addEmployee(employeeData) {
+    const employee = {
+      ...employeeData,
+      id: Math.floor(Date.now() + Math.random() * 1000).toString(), // Ensure unique string ID
+      dateHired: new Date().toISOString().split('T')[0]
+    };
+    
     const store = this.getStore();
-    store.dispatch(addEmployee(employeeData));
-    return true;
+    store.dispatch(addEmployee(employee));
+    return employee;
   }
 
   static updateEmployee(id, employeeData) {
+    const existingEmployee = this.getEmployeeById(id);
+    if (!existingEmployee) {
+      return undefined;
+    }
+    
+    const updatedEmployee = {
+      ...existingEmployee,
+      ...employeeData,
+      id: id.toString()
+    };
+    
     const store = this.getStore();
-    store.dispatch(updateEmployee({ id, ...employeeData }));
-    return true;
+    store.dispatch(updateEmployee(updatedEmployee));
+    return updatedEmployee;
   }
 
   static deleteEmployee(id) {
+    const employee = this.getEmployeeById(id);
+    if (!employee) {
+      return false;
+    }
+    
     const store = this.getStore();
-    store.dispatch(deleteEmployee(id));
+    store.dispatch(deleteEmployee(id.toString()));
     return true;
   }
 

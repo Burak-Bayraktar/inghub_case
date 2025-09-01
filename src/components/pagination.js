@@ -84,6 +84,10 @@ export class AppPagination extends LitElement {
     return Math.max(1, Math.ceil(this.total / this.pageSize));
   }
 
+  get totalPages() {
+    return this.pageCount;
+  }
+
   _buildRange() {
     const totalPageCount = this.pageCount;
     const totalNumbers = this.siblingCount * 2 + 5;

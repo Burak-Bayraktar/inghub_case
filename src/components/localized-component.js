@@ -14,7 +14,8 @@ export class LocalizedComponent extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this._onLocaleChange = () => {
-      this.currentLocale = window.appGetLocale ? window.appGetLocale() : 'en';
+      const newLocale = window.appGetLocale ? window.appGetLocale() : 'en';
+      this.currentLocale = newLocale || 'en';
     };
     window.addEventListener('locale-changed', this._onLocaleChange);
   }

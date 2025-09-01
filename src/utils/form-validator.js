@@ -1,7 +1,8 @@
 import { msg } from '@lit/localize';
+import { EmployeeService } from '../services/employee-service.js';
 
 export class FormValidator {
-  static validateEmployeeForm(formData) {
+  static validateEmployeeForm(formData, existingEmployeeId = null) {
     const errors = {};
 
     if (!formData.firstName || formData.firstName.trim() === '') {
@@ -20,6 +21,8 @@ export class FormValidator {
       errors.email = msg('Email is required');
     } else if (!this._isValidEmail(formData.email)) {
       errors.email = msg('Please enter a valid email address');
+    } else if (!EmployeeService.isEmailUnique(formData.email, existingEmployeeId)) {
+      errors.email = msg('This email address is already in use');
     }
 
     if (!formData.phone || formData.phone.trim() === '') {
@@ -75,9 +78,16 @@ export class FormValidator {
     if (!value) return false;
     
     const cleaned = value.replace(/[\s\-()+ ]/g, '');    
-    const phoneRegex = /^(90[5][0-9]{9}|[5][0-9]{9}|[0-9]{10,15})$/;
+
+    if (cleaned.length === 12 && cleaned.startsWith('90') && cleaned[2] === '5') {
+      return /^90[5][0-9]{9}$/.test(cleaned);
+    } else if (cleaned.length === 11 && cleaned.startsWith('05')) {
+      return /^05[0-9]{9}$/.test(cleaned);
+    } else if (cleaned.length === 10 && cleaned.startsWith('5')) {
+      return /^5[0-9]{9}$/.test(cleaned);
+    }
     
-    return phoneRegex.test(cleaned) && cleaned.length >= 10 && cleaned.length <= 15;
+    return false;
   }
 
   static _isValidDate(value) {
