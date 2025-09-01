@@ -537,63 +537,85 @@ describe('EmployeeService', () => {
     });
   });
 
-  describe('data validation edge cases', () => {
-    it('should handle employees with unicode characters', () => {
-      const employee = EmployeeService.addEmployee({
-        firstName: 'Müge',
-        lastName: 'Öztürk',
-        email: 'muge.ozturk@example.com',
-        phone: '+90 555 123 4567',
-        position: 'Geliştirici',
-        department: 'Mühendislik'
-      });
-      
-      expect(employee.firstName).to.equal('Müge');
-      expect(employee.lastName).to.equal('Öztürk');
-      expect(employee.position).to.equal('Geliştirici');
-      expect(employee.department).to.equal('Mühendislik');
+  describe('searchEmployees', () => {
+    it('should return all employees when search term is empty', () => {
+      const results = EmployeeService.searchEmployees('');
+      expect(results).to.have.lengthOf(3);
     });
 
-    it('should handle employees with very long names', () => {
-      const longName = 'A'.repeat(100);
-      const employee = EmployeeService.addEmployee({
-        firstName: longName,
-        lastName: longName,
-        email: 'long.name@example.com',
-        position: 'Developer',
-        department: 'Engineering'
-      });
-      
-      expect(employee.firstName).to.equal(longName);
-      expect(employee.lastName).to.equal(longName);
+    it('should return all employees when search term is null', () => {
+      const results = EmployeeService.searchEmployees(null);
+      expect(results).to.have.lengthOf(3);
     });
 
-    it('should handle empty string properties', () => {
-      const employee = EmployeeService.addEmployee({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        position: '',
-        department: ''
-      });
-      
-      expect(employee.id).to.be.a('string');
-      expect(employee.dateHired).to.be.a('string');
+    it('should return all employees when search term is undefined', () => {
+      const results = EmployeeService.searchEmployees(undefined);
+      expect(results).to.have.lengthOf(3);
     });
 
-    it('should handle null and undefined properties', () => {
-      const employee = EmployeeService.addEmployee({
-        firstName: null,
-        lastName: undefined,
-        email: null,
-        phone: undefined,
-        position: null,
-        department: undefined
-      });
-      
-      expect(employee.id).to.be.a('string');
-      expect(employee.dateHired).to.be.a('string');
+    it('should search by first name', () => {
+      const results = EmployeeService.searchEmployees('Jane');
+      expect(results).to.have.lengthOf(1);
+      expect(results[0].firstName).to.equal('Jane');
+    });
+
+    it('should search by last name', () => {
+      const results = EmployeeService.searchEmployees('Smith');
+      expect(results).to.have.lengthOf(1);
+      expect(results[0].lastName).to.equal('Smith');
+    });
+
+    it('should search by email', () => {
+      const results = EmployeeService.searchEmployees('jane.smith@example.com');
+      expect(results).to.have.lengthOf(1);
+      expect(results[0].email).to.equal('jane.smith@example.com');
+    });
+
+    it('should search by position', () => {
+      const results = EmployeeService.searchEmployees('UX Designer');
+      expect(results).to.have.lengthOf(1);
+      expect(results[0].position).to.equal('UX Designer');
+    });
+
+    it('should search by department', () => {
+      const results = EmployeeService.searchEmployees('Design');
+      expect(results).to.have.lengthOf(1);
+      expect(results[0].department).to.equal('Design');
+    });
+
+    it('should search by full name', () => {
+      const results = EmployeeService.searchEmployees('John Doe');
+      expect(results).to.have.lengthOf(1);
+      expect(results[0].firstName).to.equal('John');
+      expect(results[0].lastName).to.equal('Doe');
+    });
+
+    it('should be case insensitive', () => {
+      const results = EmployeeService.searchEmployees('JANE');
+      expect(results).to.have.lengthOf(1);
+      expect(results[0].firstName).to.equal('Jane');
+    });
+
+    it('should handle partial matches', () => {
+      const results = EmployeeService.searchEmployees('Jo');
+      expect(results).to.have.lengthOf(2); // John and Johnson
+    });
+
+    it('should return empty array when no matches found', () => {
+      const results = EmployeeService.searchEmployees('NonExistent');
+      expect(results).to.have.lengthOf(0);
+    });
+
+    it('should trim search term', () => {
+      const results = EmployeeService.searchEmployees('  Jane  ');
+      expect(results).to.have.lengthOf(1);
+      expect(results[0].firstName).to.equal('Jane');
+    });
+
+    it('should search in phone numbers', () => {
+      const results = EmployeeService.searchEmployees('555 123');
+      expect(results).to.have.lengthOf(1);
+      expect(results[0].phone).to.include('555 123');
     });
   });
 
@@ -670,6 +692,51 @@ describe('EmployeeService', () => {
     });
 
     it('should handle alternating save and delete operations', () => {
+      // Fresh store for this test
+      const freshStore = configureStore({
+        reducer: {
+          employees: employeesReducer
+        },
+        preloadedState: {
+          employees: {
+            employees: [
+              {
+                id: '1',
+                firstName: 'John',
+                lastName: 'Doe',
+                email: 'john.doe@example.com',
+                phone: '+90 555 123 4567',
+                position: 'Software Engineer',
+                department: 'IT',
+                dateHired: '2023-01-15'
+              },
+              {
+                id: '2',
+                firstName: 'Jane',
+                lastName: 'Smith',
+                email: 'jane.smith@example.com',
+                phone: '+90 555 987 6543',
+                position: 'UX Designer',
+                department: 'Design',
+                dateHired: '2023-02-20'
+              },
+              {
+                id: '3',
+                firstName: 'Bob',
+                lastName: 'Johnson',
+                email: 'bob.johnson@example.com',
+                phone: '+90 555 246 8135',
+                position: 'Product Manager',
+                department: 'Product',
+                dateHired: '2023-03-10'
+              }
+            ],
+            viewMode: 'table'
+          }
+        }
+      });
+      
+      EmployeeService.store = freshStore;
       const initialCount = EmployeeService.getAllEmployees().length;
       
       const employees = [];

@@ -19,6 +19,7 @@ export class EmployeeTable extends LocalizedComponent {
     viewMode: {type: String, state: true},
     showDeleteModal: {type: Boolean, state: true},
     employeeToDelete: {type: Object, state: true},
+    searchTerm: {type: String, state: true},
   };
 
   constructor() {
@@ -30,6 +31,7 @@ export class EmployeeTable extends LocalizedComponent {
     this.totalRows = 0;
     this.showDeleteModal = false;
     this.employeeToDelete = null;
+    this.searchTerm = '';
     this._storeUnsubscribe = null;
 
     this._loadEmployeeData();
@@ -51,17 +53,29 @@ export class EmployeeTable extends LocalizedComponent {
   }
 
   _loadEmployeeData() {
-    const employeeData = EmployeeService.getEmployeesPaginated(
-      this.currentPage,
-      this.pageSize
-    );
-    this.rows = employeeData.data;
-    this.totalRows = employeeData.total;
+    let allEmployees;
+    if (this.searchTerm && this.searchTerm.trim() !== '') {
+      allEmployees = EmployeeService.searchEmployees(this.searchTerm);
+    } else {
+      allEmployees = EmployeeService.getAllEmployees();
+    }
+    
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    
+    this.rows = allEmployees.slice(startIndex, endIndex);
+    this.totalRows = allEmployees.length;
     this.requestUpdate();
   }
 
   _setViewMode(mode) {
     EmployeeService.setViewMode(mode);
+  }
+
+  _onSearchInput(e) {
+    this.searchTerm = e.target.value;
+    this.currentPage = 1;
+    this._loadEmployeeData();
   }
 
   static styles = css`
@@ -84,6 +98,34 @@ export class EmployeeTable extends LocalizedComponent {
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+    
+    .search-container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+      max-width: 400px;
+    }
+    
+    .search-input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      font-size: 14px;
+      background: white;
+      transition: border-color 0.2s;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: #ff6200;
+      box-shadow: 0 0 0 2px rgba(255, 98, 0, 0.1);
+    }
+    
+    .search-input::placeholder {
+      color: #6c757d;
     }
     
     .view-switcher {
@@ -279,6 +321,15 @@ export class EmployeeTable extends LocalizedComponent {
       <div class="card">
         <div class="table-header">
           <page-title .title=${msg('Employee List')} inline></page-title>
+          <div class="search-container">
+            <input 
+              type="text" 
+              class="search-input"
+              placeholder="${msg('Search employees...')}"
+              .value=${this.searchTerm}
+              @input=${this._onSearchInput}
+            />
+          </div>
           <div class="view-switcher">
             <button 
               class="${this.viewMode === 'list' ? 'active' : ''}"

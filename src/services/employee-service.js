@@ -55,6 +55,27 @@ export class EmployeeService {
     );
   }
 
+  static searchEmployees(searchTerm) {
+    if (!searchTerm || searchTerm.trim() === '') {
+      return this.getAllEmployees();
+    }
+    
+    const employees = this.getAllEmployees();
+    const term = searchTerm.toLowerCase().trim();
+    
+    return employees.filter(employee => {
+      return (
+        employee.firstName?.toLowerCase().includes(term) ||
+        employee.lastName?.toLowerCase().includes(term) ||
+        employee.email?.toLowerCase().includes(term) ||
+        employee.phone?.toLowerCase().includes(term) ||
+        employee.position?.toLowerCase().includes(term) ||
+        employee.department?.toLowerCase().includes(term) ||
+        `${employee.firstName} ${employee.lastName}`.toLowerCase().includes(term)
+      );
+    });
+  }
+
   static addEmployee(employeeData) {
     const employee = {
       ...employeeData,

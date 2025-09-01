@@ -68,5 +68,7 @@
 'sf43a2b173a151d1c': `Lütfen geçerli bir telefon numarası girin (örn. +90 532 123 45 67)`,
 'sf71f9578ca2ddb9a': `Departman zorunludur`,
 'sf8758effabc86aeb': `Çalışan bulunamadı`,
+'s61b8861b5836452e': `Search employees...`,
+'s01872e5752c1845d': `This email address is already in use`,
     };
   

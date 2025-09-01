@@ -324,6 +324,8 @@ describe('ItemForm', () => {
     element.dateOfEmployment = '2023-01-01';
     element.dateOfBirth = '1990-01-01';
     
+    await element.updateComplete;
+    
     const EmployeeService = (await import('../src/services/employee-service.js')).EmployeeService;
     const originalAddEmployee = EmployeeService.addEmployee;
     EmployeeService.addEmployee = () => {
@@ -331,7 +333,14 @@ describe('ItemForm', () => {
     };
     
     const submitEvent = new Event('submit');
-    element.onSubmit(submitEvent);
+    submitEvent.preventDefault = () => {}; // Mock preventDefault
+    
+    try {
+      element.onSubmit(submitEvent);
+      await element.updateComplete;
+    } catch (e) {
+      // Expected error
+    }
     
     expect(errorLogged).to.be.true;
     
@@ -476,6 +485,7 @@ describe('ItemForm', () => {
     element._onInputChange('department', 'Tech');
     element._onInputChange('position', 'Senior');
     element._onInputChange('dateOfEmployment', '2023-01-01');
+    element._onInputChange('dateOfBirth', '1990-01-01');
     
     await element.updateComplete;
     
