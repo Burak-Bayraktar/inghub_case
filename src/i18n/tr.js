@@ -30,6 +30,7 @@
 's4feca3cbb4736ce6': `Soyadı girin`,
 's53802e3f37d072a7': `Doğum Tarihi`,
 's578e15ad8684849e': `Pozisyon şunlardan biri olmalıdır: Junior, Medior, Senior`,
+'s61b8861b5836452e': `Çalışan ara...`,
 's628179a5df2af433': `silinecek`,
 's64ef2a6c2dd1d3d1': `Düzenle`,
 's6fb60ded64bf6cb3': `Çalışan başarıyla güncellendi`,
@@ -62,13 +63,12 @@
 'sd76ded267d43a171': `Sisteme ilk çalışanınızı ekleyerek başlayın.`,
 'sda8ea7031a8a7d69': `Ad zorunludur`,
 'sdc673e73b5c13aea': `Sil`,
+'se9404b382b736041': `Çalışan`,
 'sef49aec68fd1dc66': `Ad`,
 'sf07904be22a6165a': `E-posta zorunludur`,
 'sf1bc83d2509bafcf': `Telefon`,
 'sf43a2b173a151d1c': `Lütfen geçerli bir telefon numarası girin (örn. +90 532 123 45 67)`,
 'sf71f9578ca2ddb9a': `Departman zorunludur`,
 'sf8758effabc86aeb': `Çalışan bulunamadı`,
-'s61b8861b5836452e': `Search employees...`,
-'s01872e5752c1845d': `This email address is already in use`,
     };
   

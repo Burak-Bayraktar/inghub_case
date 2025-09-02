@@ -238,9 +238,13 @@
   <source>will be deleted</source>
   <target>silinecek</target>
 </trans-unit>
-<trans-unit id="s8b7c6c8a8c8a8c8a">
+<trans-unit id="s61b8861b5836452e">
   <source>Search employees...</source>
   <target>Çalışan ara...</target>
+</trans-unit>
+<trans-unit id="se9404b382b736041">
+  <source>Employee</source>
+  <target>Çalışan</target>
 </trans-unit>
 </body>
 </file>

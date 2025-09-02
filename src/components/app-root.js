@@ -143,11 +143,34 @@ export class AppRoot extends LocalizedComponent {
 
   firstUpdated() {
     super.firstUpdated();
+    this._updatePageTitle();
   }
 
   _onRouteChanged(event) {
     this.currentRoute = event.detail.route;
     this.routeParams = event.detail.params;
+    this._updatePageTitle();
+  }
+
+  _updatePageTitle() {
+    let title = 'ING Employee Management';
+    
+    switch (this.currentRoute) {
+      case '/':
+        title = `${msg('Employee List')} - ING Employee Management`;
+        break;
+      case '/new':
+        title = `${msg('Add New')} ${msg('Employee')} - ING Employee Management`;
+        break;
+      case '/edit':
+        title = `${msg('Edit')} ${msg('Employee')} - ING Employee Management`;
+        break;
+      default:
+        title = 'ING Employee Management';
+        break;
+    }
+    
+    document.title = title;
   }
 
   _setLocale(locale) {
@@ -161,6 +184,7 @@ export class AppRoot extends LocalizedComponent {
           detail: { locale } 
         }));
         
+        this._updatePageTitle(); // Title'ı güncelle
         this.requestUpdate();
       });
     }

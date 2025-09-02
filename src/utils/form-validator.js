@@ -21,8 +21,6 @@ export class FormValidator {
       errors.email = msg('Email is required');
     } else if (!this._isValidEmail(formData.email)) {
       errors.email = msg('Please enter a valid email address');
-    } else if (!EmployeeService.isEmailUnique(formData.email, existingEmployeeId)) {
-      errors.email = msg('This email address is already in use');
     }
 
     if (!formData.phone || formData.phone.trim() === '') {
